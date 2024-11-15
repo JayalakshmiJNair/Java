@@ -1,0 +1,55 @@
+package file;
+
+import java.util.*;
+import java.io.*;
+
+public class FileException {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        FileWriter fw = null;
+        FileReader fr = null;
+        FileWriter w = null;
+
+        try {
+            // Writing data to "sample.txt"
+            fw = new FileWriter("sample.txt");
+            System.out.println("Enter the data:");
+            String str = sc.nextLine();
+            fw.write(str);
+            System.out.println("Data written to 'sample.txt' successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        } finally {
+            try {
+                if (fw != null) fw.close();
+            } catch (IOException e) {
+                System.err.println("Error closing FileWriter: " + e.getMessage());
+            }
+        }
+
+        try {
+            // Reading data from "sample.txt" and writing it to "new_sample.txt"
+            fr = new FileReader("sample.txt");
+            w = new FileWriter("new_sample.txt");
+            int i = fr.read();
+            while (i != -1) {
+                w.write((char) i);
+                i = fr.read();
+            }
+            System.out.println("File copy operation completed successfully.");
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error during file operation: " + e.getMessage());
+        } finally {
+            try {
+                if (fr != null) fr.close();
+                if (w != null) w.close();
+            } catch (IOException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+
+        sc.close();
+    }
+}
