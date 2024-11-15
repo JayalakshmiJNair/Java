@@ -1,0 +1,108 @@
+package interfaceexample;
+
+interface Pet {
+    void getName();
+    void setName(String name);
+    void play();
+}
+
+class Animal {
+    protected int legs;
+
+    protected Animal(int legs) {
+        System.out.println("Number of legs is " + legs);
+    }
+
+    public void walk() {
+        System.out.println("Walking...");
+    }
+
+    public void eat() {
+        System.out.println("Eating...");
+    }
+}
+
+class Spider extends Animal {
+    public Spider() {
+        super(8);
+        System.out.println("Spider");
+    }
+
+    public void eat() {
+        System.out.println("Spider eats");
+    }
+}
+
+class Cat extends Animal implements Pet {
+    private String name;
+
+    public Cat(String name) {
+        super(4);
+        this.name = name;
+    }
+
+    public void getName() {
+        System.out.println("Name of cat is " + this.name);
+    }
+
+    public void setName(String newname) {
+        this.name = newname;
+    }
+
+    public void play() {
+        System.out.println("Cat plays");
+    }
+
+    public void eat() {
+        System.out.println("Cat eats");
+    }
+}
+
+class Fish extends Animal implements Pet {
+    private String name;
+
+    public Fish() {
+        super(0);
+        System.out.println("Fish");
+    }
+
+    public void getName() {
+        System.out.println("Name of fish is " + this.name);
+    }
+
+    public void setName(String newname) {
+        this.name = newname;
+    }
+
+    public void play() {
+        System.out.println("Fish plays");
+    }
+
+    public void walk() {
+        System.out.println("Fish swims");
+    }
+
+    public void eat() {
+        System.out.println("Fish eats");
+    }
+}
+
+public class Interface {
+    public static void main(String[] args) {
+        Cat c = new Cat("oggy");
+        c.getName();
+        c.setName("Oggy");
+        c.play();
+        c.eat();
+
+        Fish f = new Fish();
+        f.setName("somi");
+        f.getName();
+        f.play();
+        f.walk();
+        f.eat();
+
+        Spider s = new Spider();
+        s.eat();
+    }
+}
