@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Frequency {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Take input from the user
+        System.out.println("Enter a string to find the frequency of each character:");
+        String input = sc.nextLine();
+        
+        // Convert input to lowercase to make the comparison case-insensitive
+        input = input.toLowerCase();
+        
+        // Create an array to store the frequency of each character (assuming lowercase English letters)
+        int[] freq = new int[26]; // Array for 26 lowercase English letters
+        
+        // Count the frequency of each character
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            // Check if the character is a lowercase letter (a-z)
+            if (c >= 'a' && c <= 'z') {
+                freq[c - 'a']++;
+            }
+        }
+        
+        // Display the frequency of each character
+        System.out.println("Character frequencies:");
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] > 0) {
+                char c = (char) (i + 'a');
+                System.out.println(c + ": " + freq[i]);
+            }
+        }
+
+        sc.close();
+    }
+}
