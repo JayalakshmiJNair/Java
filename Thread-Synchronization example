@@ -1,0 +1,87 @@
+package synchronization;
+
+class Shared {
+    private int counter = 0;
+    private boolean incrementTurn = true; // Flag to manage turn-based execution
+    
+    synchronized void increment() {
+        System.out.println("Increment thread started...");
+        for (int i = 0; i <= 5; i++) {
+            while (!incrementTurn) { // Wait for its turn
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+            counter++;
+            System.out.println("Incremented: " + counter);
+            incrementTurn = false;
+            notify(); // Notify waiting threads
+            try {
+                Thread.sleep(1000); // Simulate processing time
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+    
+    synchronized void decrement() {
+        System.out.println("Decrement thread started...");
+        for (int i = 0; i <= 5; i++) {
+            while (incrementTurn) { // Wait for its turn
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                }
+            }
+            counter--;
+            System.out.println("Decremented: " + counter);
+            incrementTurn = true;
+            notify(); // Notify waiting threads
+            try {
+                Thread.sleep(1000); // Simulate processing time
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+class IncrementCounter extends Thread {
+    private final Shared shared;
+
+    IncrementCounter(Shared shared) {
+        this.shared = shared;
+    }
+
+    @Override
+    public void run() {
+        shared.increment();
+    }
+}
+
+class DecrementCounter extends Thread {
+    private final Shared shared;
+
+    DecrementCounter(Shared shared) {
+        this.shared = shared;
+    }
+
+    @Override
+    public void run() {
+        shared.decrement();
+    }
+}
+
+public class Synchronization {
+    public static void main(String[] args) {
+        Shared shared = new Shared();
+        IncrementCounter incrementThread = new IncrementCounter(shared);
+        DecrementCounter decrementThread = new DecrementCounter(shared);
+        
+        incrementThread.start();
+        decrementThread.start();
+    }
+}
