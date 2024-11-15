@@ -1,0 +1,166 @@
+package calculator;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Calculator implements ActionListener {
+    JButton b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,add,sub,mul,div,equal,dec,clr;
+    JTextField result;
+    double fn=0,sn=0;
+    double cr;
+    char operator;
+    
+    Calculator() {
+        JFrame jf=new JFrame("Calculator");
+        jf.setSize(500,500);
+        jf.setLayout(null);
+        
+        result=new JTextField();
+        result.setBounds(50,25,280,50);
+        jf.add(result);
+        
+        b0=new JButton("0");
+        jf.add(b0);
+        b0.addActionListener(this);
+        
+        b1=new JButton("1");
+        jf.add(b1);
+        b1.addActionListener(this);
+        
+        b2=new JButton("2");
+        jf.add(b2);
+        b2.addActionListener(this);
+        
+        b3=new JButton("3");
+        jf.add(b3);
+        b3.addActionListener(this);
+        
+        b4=new JButton("4");
+        jf.add(b4);
+        b4.addActionListener(this);
+        
+        b5=new JButton("5");
+        jf.add(b5);
+        b5.addActionListener(this);
+        
+        b6=new JButton("6");
+        jf.add(b6);
+        b6.addActionListener(this);
+        
+        b7=new JButton("7");
+        jf.add(b7);
+        b7.addActionListener(this);
+        
+        b8=new JButton("8");
+        jf.add(b8);
+        b8.addActionListener(this);
+        
+        b9=new JButton("9");
+        jf.add(b9);
+        b9.addActionListener(this);
+        
+        add=new JButton("+");
+        jf.add(add);
+        add.addActionListener(this);
+        
+        sub=new JButton("-");
+        jf.add(sub);
+        sub.addActionListener(this);
+        
+        mul=new JButton("*");
+        jf.add(mul);
+        mul.addActionListener(this);
+        
+        div=new JButton("/");
+        jf.add(div);
+        div.addActionListener(this);
+        
+        equal=new JButton("=");
+        jf.add(equal);
+        equal.addActionListener(this);
+        
+        clr=new JButton("C");
+        jf.add(clr);
+        clr.addActionListener(this);
+        
+        dec=new JButton(".");
+        jf.add(dec);
+        dec.addActionListener(this);
+        
+        b7.setBounds(50,100,60,50);
+        b8.setBounds(120,100,60,50);
+        b9.setBounds(190,100,60,50);
+        b4.setBounds(50,160,60,50);
+        b5.setBounds(120,160,60,50);
+        b6.setBounds(190,160,60,50);
+        b1.setBounds(50,220,60,50);
+        b2.setBounds(120,220,60,50);
+        b3.setBounds(190,220,60,50);
+        b0.setBounds(50,280,60,50);
+        add.setBounds(260,100,60,50);
+        sub.setBounds(260,160,60,50);
+        mul.setBounds(260,220,60,50);
+        div.setBounds(260,280,60,50);
+        clr.setBounds(190,280,60,50);
+        equal.setBounds(50,340,270,50);
+        dec.setBounds(120,280,60,50);
+        
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    public static void main(String[] args) {
+        new Calculator();
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        Object source=e.getSource();
+        JButton [] nB= { b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 };
+        for(int i=0;i<=9;i++) {
+            if(source==nB[i]) {
+                result.setText(result.getText() +i);
+                return;
+            }
+        }
+        if(source==dec) {
+            result.setText(result.getText()+ ".");
+        }
+        if(source==add) {
+            fn=Double.parseDouble(result.getText());
+            operator='+';
+            result.setText("");
+        } else if(source==sub) {
+            fn=Double.parseDouble(result.getText());
+            operator='-';
+            result.setText("");
+        } else if(source==mul) {
+            fn=Double.parseDouble(result.getText());
+            operator='*';
+            result.setText("");
+        } else if(source==div) {
+            fn=Double.parseDouble(result.getText());
+            operator='/';
+            result.setText("");
+        } else if(source==equal) {
+            sn=Double.parseDouble(result.getText());
+            switch(operator) {
+                case '+':
+                    cr=fn+sn;
+                    break;
+                case '-':
+                    cr=fn-sn;
+                    break;
+                case '*':
+                    cr=fn*sn;
+                    break;
+                case '/':
+                    cr=sn!=0? fn/sn: 0;
+                    break;
+            }
+            result.setText(String.valueOf(cr));
+            fn=cr;
+        } else if(source==clr) {
+            result.setText("");
+        }
+    }
+}
