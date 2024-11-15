@@ -1,0 +1,34 @@
+// Parent class Shape
+class Shape {
+    public void sides() {
+        System.out.println("A shape has sides.");
+    }
+}
+
+// Child class Triangle
+class Triangle extends Shape {
+    @Override
+    public void sides() {
+        System.out.println("A Triangle has 3 sides.");
+    }
+}
+
+// Child class Square
+class Square extends Shape {
+    @Override
+    public void sides() {
+        System.out.println("A Square has 4 sides.");
+    }
+}
+
+public class PolymorphismExample {
+    public static void main(String[] args) {
+        // Create objects of different shapes
+        Shape shape1 = new Triangle();  // Polymorphism: Reference of parent, object of child
+        Shape shape2 = new Square();    // Polymorphism: Reference of parent, object of child
+        
+        // Call the sides() method
+        shape1.sides();  // Calls Triangle's sides() method
+        shape2.sides();  // Calls Square's sides() method
+    }
+}
